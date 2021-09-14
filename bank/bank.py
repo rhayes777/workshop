@@ -6,12 +6,13 @@ class Account:
     def __init__(self, name):
         self.name = name
         self.balance = 0
+        self.overdraft_limit = 0
 
     def make_deposit(self, amount):
         self.balance += amount
 
     def make_withdrawal(self, amount):
-        if amount > self.balance:
+        if amount > self.balance + self.overdraft_limit:
             raise AccountException(
                 f"Withdrawal amount {amount} is greater than balance {self.balance}"
             )

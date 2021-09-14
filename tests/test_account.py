@@ -49,3 +49,12 @@ def test_make_bad_withdrawal(
         account.make_withdrawal(20)
 
     assert account.balance == 10
+
+
+def test_overdraft_limit(
+        account
+):
+    account.overdraft_limit = 10
+    account.make_withdrawal(10)
+
+    assert account.balance == -10

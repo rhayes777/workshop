@@ -58,10 +58,27 @@ def test_overdraft_limit(
 
     assert account.available_funds == 10
 
-    account.make_withdrawal(10)
 
-    assert account.balance == -10
-    assert account.available_funds == 0
+@pytest.mark.parametrize(
+    "limit, withdrawal, balance, funds",
+    [
+        (10, 10, -10, 0),
+        (10, 5, -5, 5),
+        (20, 5, -5, 15),
+    ]
+)
+def test_withdrawal(
+        account,
+        limit,
+        withdrawal,
+        balance,
+        funds
+):
+    account.overdraft_limit = limit
+    account.make_withdrawal(withdrawal)
+
+    assert account.balance == balance
+    assert account.available_funds == funds
 
 
 def test_set_balance(

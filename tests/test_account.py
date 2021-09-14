@@ -55,6 +55,19 @@ def test_overdraft_limit(
         account
 ):
     account.overdraft_limit = 10
+
+    assert account.available_funds == 10
+
     account.make_withdrawal(10)
 
     assert account.balance == -10
+    assert account.available_funds == 0
+
+
+def test_set_balance(
+        account
+):
+    with pytest.raises(
+            AccountException
+    ):
+        account.balance = -10

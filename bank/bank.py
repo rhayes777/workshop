@@ -39,9 +39,18 @@ class Account:
         self.balance -= amount
 
 
+class StudentAccount(Account):
+    def step(self):
+        if self.balance > 0:
+            super().step()
+
+
 class Bank:
-    def __init__(self):
-        self.interest_rate = 0.0
+    def __init__(
+            self,
+            interest_rate=0.1
+    ):
+        self.interest_rate = interest_rate
         self.accounts = list()
 
     def open_account(self, name):

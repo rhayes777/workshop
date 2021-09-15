@@ -1,17 +1,6 @@
 import pytest
 
-from bank.bank import Bank, AccountException
-
-
-@pytest.fixture(
-    name="account"
-)
-def make_account():
-    bank = Bank()
-
-    return bank.open_account(
-        name="Richard"
-    )
+from bank.bank import AccountException
 
 
 def test_open_account(
@@ -88,3 +77,12 @@ def test_set_balance(
             AccountException
     ):
         account.balance = -10
+
+
+def test_deposit_below_limit(
+        account
+):
+    account._balance = -10
+    account.make_deposit(5)
+
+    assert account.balance == -5

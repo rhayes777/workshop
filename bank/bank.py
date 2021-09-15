@@ -3,10 +3,18 @@ class AccountException(Exception):
 
 
 class Account:
-    def __init__(self, name):
+    def __init__(
+            self,
+            name,
+            bank
+    ):
         self.name = name
         self._balance = 0
         self.overdraft_limit = 0
+        self.bank = bank
+
+    def step(self):
+        self._balance *= (1 + self.bank.interest_rate)
 
     @property
     def balance(self):
@@ -25,12 +33,27 @@ class Account:
         return self.overdraft_limit + self.balance
 
     def make_deposit(self, amount):
-        self.balance += amount
+        self._balance += amount
 
     def make_withdrawal(self, amount):
         self.balance -= amount
 
 
 class Bank:
+    def __init__(self):
+        self.interest_rate = 0.0
+        self.accounts = list()
+
     def open_account(self, name):
-        return Account(name)
+        account = Account(
+            name,
+            bank=self
+        )
+        self.accounts.append(
+            account
+        )
+        return account
+
+    def step(self):
+        for account in self.accounts:
+            account.step()

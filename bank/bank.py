@@ -8,6 +8,10 @@ class Account:
             name,
             bank
     ):
+        bank.accounts.append(
+            self
+        )
+
         self.name = name
         self._balance = 0
         self.overdraft_limit = 0
@@ -52,16 +56,6 @@ class Bank:
     ):
         self.interest_rate = interest_rate
         self.accounts = list()
-
-    def open_account(self, name):
-        account = Account(
-            name,
-            bank=self
-        )
-        self.accounts.append(
-            account
-        )
-        return account
 
     def step(self):
         for account in self.accounts:

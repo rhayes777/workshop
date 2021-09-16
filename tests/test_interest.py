@@ -1,6 +1,6 @@
 import pytest
 
-from bank.bank import StudentAccount
+from bank.bank import StudentAccount, Account
 
 
 @pytest.mark.parametrize(
@@ -31,8 +31,9 @@ def test_pay_all(
         account,
         bank
 ):
-    account_2 = bank.open_account(
-        "Second"
+    account_2 = Account(
+        name="Second",
+        bank=bank
     )
 
     account.balance = 10

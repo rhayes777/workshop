@@ -1,6 +1,6 @@
 import pytest
 
-from bank.bank import Bank
+from bank.bank import Bank, Account
 
 
 @pytest.fixture(
@@ -16,6 +16,7 @@ def make_bank():
 def make_account(
         bank
 ):
-    return bank.open_account(
-        name="Richard"
+    return Account(
+        name="Richard",
+        bank=bank
     )

@@ -801,7 +801,7 @@ tests/
   test_interest.py
 ```
 
-# Inheritance
+# Interest
 
 Perhaps we want different kinds of account. Business accounts, savings accounts or student accounts for example. These would need to have different behaviours. For example, we might want a student account to not be charged interest for entering their overdraft.
 
